@@ -6,18 +6,18 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList compraList = new ArrayList();
+        ArrayList<Producto> compraList = new ArrayList();
 
         int option;
-        while( ( option = showMenu(compraList) ) != 0){
-            switch (option){
+        while ((option = showMenu(compraList)) != 0) {
+            switch (option) {
                 case 1:
                     // Añadir producto
                     addProd(compraList);
                     break;
                 case 2:
                     //Eliminar producto
-                    if( compraList.size() > 0 ){
+                    if (compraList.size() > 0) {
                         deleteProd(compraList);
                     }
                     break;
@@ -34,69 +34,69 @@ public class Main {
         }
     }
 
-    public static void deleteProd(ArrayList myList){
+    public static void deleteProd(ArrayList<Producto> myList) {
         Scanner input = new Scanner(System.in);
         int index;
 
         showProd(myList);
 
-        do{
+        do {
             System.out.printf("Introducir el índice: ");
             index = input.nextInt();
-        }while( !correctIndex(index, myList) );
+        } while (!correctIndex(index, myList));
 
 
         myList.remove(index);
 
     }
 
-    public static boolean correctIndex(int index, ArrayList myList){
-        if( index >=0 && index < myList.size() ){
+    public static boolean correctIndex(int index, ArrayList<Producto> myList) {
+        if (index >= 0 && index < myList.size()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public static void addProd(ArrayList myList){
+    public static void addProd(ArrayList<Producto> myList) {
         Scanner input = new Scanner(System.in);
         String list;
         Double price;
 
-        do{
+        do {
             System.out.println("Introducir Producto:");
             list = input.nextLine();
 
             System.out.println("Introducir Precio:");
             price = input.nextDouble();
 
-        }while( list.length() == 0);
+        } while (list.length() == 0);
 
-        myList.add( list + " = " + price + " €" );
-
+        myList.add(new Producto(list, price));
 
 
     }
 
-    public static void showProd(ArrayList myList){
+    public static void showProd(ArrayList<Producto> myList) {
         int index = 0;
-        for (Object list: myList) {
-            System.out.println( (index++) + " - " + list);
+        for (Producto p : myList) {
+            System.out.println(p.toString());
         }
 
     }
 
-    public static void showPrice(ArrayList <Producto> myList){
+    public static void showPrice(ArrayList<Producto> myList) {
         double total = 0;
 
-        for (Producto p : myList){
+        for (Producto p : myList) {
 
-          total = total +  p.getPrecio();
-
+            total = total + p.getPrecio();
         }
+
+        System.out.println("Total " + total + "€");
     }
 
-    public static int showMenu(ArrayList myList){
+    public static int showMenu(ArrayList<Producto> myList) {
         Scanner input = new Scanner(System.in);
         int option;
 
